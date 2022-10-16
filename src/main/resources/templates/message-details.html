@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Message details</title>
+</head>
+<body>
+
+<table>
+    <tbody>
+        <td th:text="${messageDto.content}"/>
+        <td th:text="${messageDto.timeStamp}"/>
+        <td th:text="${messageDto.username}"/>
+    </tbody>
+
+</table>
+
+<!--<div th:if="${commentsDto != null}">-->
+    <table>
+        <tbody>
+        <tr th:each="commentDto : ${commentsDto}">
+
+            <td th:text="${commentDto.content}"/>
+            <td th:text="${commentDto.timeStamp}"/>
+            <td th:text="${commentDto.username}"/>
+
+<!--            <td> <a th:href="@{/messages/{id}/editor/(id=${messageDto.id})}">Edit message</a> </td>-->
+
+<!--            <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                <td> <a th:href="@{/admin/messages/{id}/delete/(id=${messageDto.id})}">Delete message</a> </td>-->
+<!--            </div>-->
+        </tr>
+        </tbody>
+
+    </table>
+<!--</div>-->
+
+
+<form method="post" th:action="@{/messages/{id}/comment/newComment}" th:object="${commentDto}">
+
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{username}">
+    Reply/comment:
+    <input type="text" th:field="*{content}"/>
+
+
+    <button type="submit">Send</button>
+
+</form>
+
+<div>
+    <a th:href="@{/messages}">Return to message board</a>
+</div>
+</body>
+</html>

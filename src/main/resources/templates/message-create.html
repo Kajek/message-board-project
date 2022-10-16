@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new Message</title>
+</head>
+<body>
+
+<form method="post" th:action="@{/messages/newMessage}" th:object="${messageDto}">
+
+    <label>
+        Treść wiadomości:
+        <input type="text" th:field="*{content}"/>
+        <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}"/>
+    </label>
+
+    <button type="submit">Send Message</button>
+
+</form>
+
+</body>
+</html>

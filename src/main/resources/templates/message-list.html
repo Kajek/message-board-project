@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+Logged as <p th:text="${currentUser}"/>
+
+Logged as (thymeleaf) <p sec:authentication="name"/>
+
+<a th:href="@{/logout}">Logout</a>
+
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <td> <a th:href="@{/admin/panel}">Admin Settings</a> </td>
+</div>
+
+
+<div sec:authorize="hasRole('ROLE_USER')">
+    <td> <a th:href="@{/user/panel}">Account Settings</a> </td>
+</div>
+
+<table>
+    <tbody>
+    <tr th:each="messageDto : ${messagesDto}">
+        <td th:text="${messageDto.content}"/>
+        <td th:text="${messageDto.timeStamp}"/>
+        <td th:text="${messageDto.username}"/>
+        <td> <a th:href="@{/messages/{id}/(id=${messageDto.id})}">See replies</a> </td>
+        <td> <a th:href="@{/messages/{id}/editor/(id=${messageDto.id})}">Edit message</a> </td>
+
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <td> <a th:href="@{/admin/messages/{id}/delete/(id=${messageDto.id})}">Delete message</a> </td>
+        </div>
+    </tr>
+    </tbody>
+
+</table>
+
+<div>
+    <a th:href="@{/messages/message}">Create message</a>
+</div>
+
+</body>
+</html>
