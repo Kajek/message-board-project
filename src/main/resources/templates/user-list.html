@@ -1,39 +1,58 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
-  <meta charset="UTF-8">
-  <title>User List</title>
+    <meta charset="UTF-8">
+    <title>User List</title>
 </head>
 <body>
 
-Logged as <p th:text="${currentUser}"/>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                List of registered users
+            </p>
+        </div>
+    </div>
+</section>
 
-Logged as (thymeleaf) <p sec:authentication="name"/>
-
-<a th:href="@{/logout}">Logout</a>
-
-
-<table>
-  <thead>
-  <tr>
-    <th>Username</th>
-    <th>Role</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="user : ${users}">
-    <td th:text="${user.username}"/>
-    <td th:text="${user.roles}"/>
-    <td> <a th:href="@{/admin/users/{username}/delete/(username=${user.username})}">delete</a> </td>
-  </tr>
-  </tbody>
-</table>
-
-<div>
-  <a th:href="@{/messages}">Return to message board</a>
+<div class="container has-text-left">
+    Logged as: <p sec:authentication="name"/>
 </div>
 
+<div class="container has-text-left">
+    <a th:href="@{/logout}">Logout</a>
+</div>
+
+<section class="section">
+    <div class="columns is-centered">
+        <div class="column is-narrow">
+            <table class="table is-striped is-hoverable">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role/Roles</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, iStat : ${users}"
+                    th:style="${iStat.odd}? 'font-weight: bold;'"
+                    th:alt-title="${iStat.even}? 'even' : 'odd'">
+                    <td th:text="${user.username}"/>
+                    <td th:text="${user.roles}"/>
+                    <td><a th:href="@{/admin/users/{username}/delete/(username=${user.username})}">delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<div class="container has-text-right">
+    <a th:href="@{/messages}">Main page</a>
+</div>
 
 
 </body>

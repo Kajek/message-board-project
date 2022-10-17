@@ -18,8 +18,4 @@ public interface MessageService {
 
     MessageDto getById(Integer id);
 
-//    void setTimestamp(Message message);
-
-//    void addComment(Message message, Comment comment);
-
 }

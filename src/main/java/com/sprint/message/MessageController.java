@@ -38,7 +38,7 @@ public class MessageController {
         return "message-list";
     }
 
-    @GetMapping("/messages/message") //messages
+    @GetMapping("/messages/message")
     public String createNewMessage(ModelMap modelMap){
         modelMap.addAttribute("messageDto", new MessageDto());
 
@@ -47,23 +47,21 @@ public class MessageController {
 
     @PostMapping("/messages/newMessage")
     public String handleNewMessage(@Valid @ModelAttribute("messageDto") MessageDto messageDto, Errors errors){
-        log.info("Added new message");
         if(errors.hasErrors()){
             log.error("Errors from frontend " + errors.getFieldErrors());
             return "message-create";
         }
         messageService.save(messageDto);
+        log.info("Added new message");
         return "redirect:/messages";
     }
 
     @GetMapping("/messages/{id}")
     public String messageDetails(@PathVariable Integer id, ModelMap modelMap){
         modelMap.addAttribute("messageDto", messageService.getById(id));
-//tutaj czy w osobnej metodzie?
-        modelMap.addAttribute("commentDto", new CommentDto());
+
         modelMap.addAttribute("commentsDto", commentService.getAllByMessageId(id));
-        
-        
+
         return "message-details";
     }
 
@@ -99,42 +97,4 @@ public class MessageController {
         return "redirect:/messages";
     }
 
-//// TODO
-//    @GetMapping("/message/create")
-//    public String createNewComment(ModelMap modelMap){
-//        modelMap.addAttribute("messageDto", messageService.getById(id));
-//        return "redirect:/message-details";
-//    }
-
-    @PostMapping("/messages/{id}/comment/newComment")
-    public String handleNewComment(@Valid @ModelAttribute("commentDto") CommentDto commentDto,
-                                   @Valid @ModelAttribute("messageDto") MessageDto messageDto,
-                                   Errors errors) {
-        log.info("Added new comment");
-        System.out.println(messageDto);
-        System.out.println(commentDto);
-        if (errors.hasErrors()) {
-            log.error("Errors from frontend " + errors.getFieldErrors());
-            return "message-details";
-        }
-        commentService.save(commentDto, messageDto);
-        return "message-details";
-    }
-
-//    @PostMapping("/messages/{id}/comment/newComment")
-//    public String handleNewComment(@Valid @ModelAttribute("commentDto") CommentDto commentDto,
-//                                   Errors errors){
-//        log.info("Added new comment");
-//
-//        System.out.println(commentDto);
-//
-//        commentDto.setMessageId(messageService.getById(id).getId());
-//        if(errors.hasErrors()){
-//            log.error("Errors from frontend " + errors.getFieldErrors());
-//            return "message-details";
-//        }
-//        commentService.save(commentDto, messageDto);
-//        return "message-details";
-//    }
-    
 }

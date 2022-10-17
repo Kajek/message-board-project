@@ -3,6 +3,7 @@ package com.sprint.comment;
 import com.sprint.message.Message;
 import com.sprint.message.MessageDto;
 import com.sprint.message.MessageRepository;
+import com.sprint.user.auth.exception.NoAccessException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +28,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void save(CommentDto commentDto, MessageDto messageDto) {
+    public void save(CommentDto commentDto, Integer messageId) {
         Comment comment = new Comment();
         comment.setContent(commentDto.getContent());
-//        comment.setMessageId(messageDto.getId());
+        comment.setMessageId(messageId);
         comment.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         comment.setTimeStamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()));
         commentRepository.save(comment);
@@ -43,7 +44,6 @@ public class CommentServiceImpl implements CommentService {
                 .stream()
                 .map(e -> CommentDto.from(e))
                 .collect(Collectors.toList());
-
     }
 
     @Override
@@ -61,19 +61,25 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void update(Comment comment) {
+    public void update(CommentDto commentDto) throws NoAccessException {
+        Comment comment = commentRepository.findById(commentDto.getId()).orElse(null);
+        if(!comment.getUsername().equalsIgnoreCase(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            throw new NoAccessException("You dont have permission to edit this message");
+        }
+
+        comment.setContent(commentDto.getContent());
+        comment.setTimeStamp("last edited : " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()));
+
         commentRepository.save(comment);
     }
 
     @Override
-    public Comment getById(Integer id) {
-        return commentRepository.findById(id).orElse(null);
+    public CommentDto getById(Integer id) {
+
+        return CommentDto.from(Objects.requireNonNull(commentRepository.findById(id).orElse(null)));
     }
 
-    @Override
-    public CommentDto getByMessageId(Integer id) {
-        return null;
-    }
+
 
 
 }

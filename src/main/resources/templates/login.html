@@ -1,27 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
 </head>
 <body>
 
-<h1>Login page</h1>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                Welcome to our local message board!
+            </p>
+        </div>
+    </div>
+</section>
 
-<form method="post" th:action="@{/login}">
 
-    Login:
-    <input type="text" name="username">
+<div class="container is-centered">
+    <div class="container has-text-centered">
+        <form method="post" th:action="@{/login}">
 
-    Password:
-    <input type="password" name="password">
+            Login:
+            <input type="text" name="username">
 
-    <button class="btn btn-primary" type="submit">Log In</button>
+            Password:
+            <input type="password" name="password">
+            <div>
+                <button class="button is-centered is-rounded is-medium" type="submit">Log In</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-</form>
+<section>
+    <div class="container is-centered">
+        <div class="container has-text-centered">
+            <td><a th:href="@{/registration}">Register new user</a></td>
+        </div>
+    </div>
+</section>
 
-<div>
-    <td> <a th:href="@{/registration}">Register new user</a> </td>
+<div class="container has-text-left">
+
+    <p>Users for testing purposes:</p>
+    <p>login: admin password: pass</p>
+    <p> login: user password: pass</p>
+
 </div>
 
 </body>

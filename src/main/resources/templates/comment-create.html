@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <meta charset="UTF-8">
-    <title>Create user</title>
+    <title>Create new Comment</title>
 </head>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-
 <body>
+
 <section class="hero is-small is-link">
     <div class="hero-body">
         <div class="container has-text-centered">
             <p class="title">
-                Create new user
+                New comment
             </p>
         </div>
     </div>
 </section>
-
 <div class="container is-centered">
     <div class="container has-text-centered">
-        <form method="post" th:action="@{/admin/users}" th:object="${userDto}">
+        <form method="post" th:action="@{/messages/{id}/comments/new/(id=${messageDto.id})}" th:object="${commentDto}">
 
             <label>
-                User Name:
-                <input type="text" th:field="*{username}"/>
-            </label>
-
-            <label>
-                User Roles (ADMIN, USER):
-                <input type="text" th:field="*{roles}"/>
+                <input class="is-medium" type="text" placeholder="Your reply/comment" th:field="*{content}"/>
+                <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}"/>
             </label>
 
             <div>
-                <button class="button is-centered is-rounded is-medium" type="submit">Add user</button>
+                <button class="button is-centered is-rounded is-medium" type="submit">Post</button>
             </div>
         </form>
     </div>

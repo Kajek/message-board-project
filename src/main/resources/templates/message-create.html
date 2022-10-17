@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Create new Message</title>
 </head>
 <body>
 
-<form method="post" th:action="@{/messages/newMessage}" th:object="${messageDto}">
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                New message
+            </p>
+        </div>
+    </div>
+</section>
 
-    <label>
-        Treść wiadomości:
-        <input type="text" th:field="*{content}"/>
-        <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}"/>
-    </label>
+<div class="container is-centered">
+    <div class="container has-text-centered">
+        <form method="post" th:action="@{/messages/newMessage}" th:object="${messageDto}">
 
-    <button type="submit">Send Message</button>
-
-</form>
+            <label>
+                <input class="is-medium" type="text" placeholder="Type here" th:field="*{content}"/>
+                <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}"/>
+            </label>
+            <div>
+                <button class="button is-centered is-rounded is-medium" type="submit">Post Message</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container has-text-right">
+    <a th:href="@{/messages}">Main page</a>
+</div>
 
 </body>
 </html>

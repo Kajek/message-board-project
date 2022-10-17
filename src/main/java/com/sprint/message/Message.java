@@ -27,23 +27,13 @@ public class Message {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Size(min = 3, max = 1000, message = "Message must be at least 3 characters and max 1000 characters")
+    @Size(min = 0, max = 1000, message = "Message must be at least 3 characters and max 1000 characters")
     private String content;
 
-//    @ManyToOne // add associacion to user class
-//    @JoinColumn(name = "user_id")
-//    private User user;
     private String username;
 
     private String timeStamp;
 
-//    @OneToMany
-//    @JoinColumn(name = "id")
-//    private List<Comment> comments;
-
-//    public User getUser() {
-//        return user;
-//    }
 
     private static Message from(MessageDto messageDto){
         return new Message(messageDto.getId(),
@@ -52,6 +42,5 @@ public class Message {
                 messageDto.getTimeStamp());
     }
 
-    //add reaction later - enum
 
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Registration form</title>
@@ -7,21 +8,42 @@
 <body>
 
 
-<h1>Registration page</h1>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                Register new user
+            </p>
+        </div>
+    </div>
+</section>
 
-<p th:text="${exceptionMessage}"/>
+<section>
+    <p th:text="${exceptionMessage}"/>
+</section>
+<div class="container is-centered">
+    <div class="container has-text-centered">
+        <form method="post" th:action="@{/registration}" th:object="${emptyUser}">
 
-<form method="post" th:action="@{/registration}" th:object="${emptyUser}">
+            Username:
+            <input type="text" th:field="*{username}">
 
-    Username:
-    <input type="text" th:field="*{username}">
+            Password:
+            <input type="password" th:field="*{password}">
 
-    Password:
-    <input type="password" th:field="*{password}">
+            <button type="submit">Register</button>
 
-    <button type="submit">Register</button>
+        </form>
+    </div>
+</div>
 
-</form>
+<section>
+    <div class="container is-centered">
+        <div class="container has-text-centered">
+            <a th:href="@{/login}">Return to login</a>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>

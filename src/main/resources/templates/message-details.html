@@ -1,55 +1,91 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Message details</title>
 </head>
 <body>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                Post details
+            </p>
+        </div>
+    </div>
+</section>
 
-<table>
-    <tbody>
-        <td th:text="${messageDto.content}"/>
-        <td th:text="${messageDto.timeStamp}"/>
-        <td th:text="${messageDto.username}"/>
-    </tbody>
+<div class="container has-text-left">
+    Logged as: <p sec:authentication="name"/>
+</div>
+<div class="container has-text-left">
+    <a th:href="@{/logout}">Logout</a>
+</div>
 
-</table>
+<section class="section">
+    <div class="columns is-centered">
+        <div class="column is-narrow">
+            <table class="table is-striped is-hoverable">
+                <thead>
+                <tr>
+                    <th>posted by</th>
+                    <th>posted</th>
+                    <th>Message</th>
+                </tr>
+                </thead>
+                <tbody>
 
-<!--<div th:if="${commentsDto != null}">-->
-    <table>
-        <tbody>
-        <tr th:each="commentDto : ${commentsDto}">
+                <td th:text="${messageDto.username}"/>
+                <td th:text="${messageDto.timeStamp}"/>
+                <td th:text="${messageDto.content}"/>
+                </tbody>
 
-            <td th:text="${commentDto.content}"/>
-            <td th:text="${commentDto.timeStamp}"/>
-            <td th:text="${commentDto.username}"/>
+            </table>
+        </div>
+    </div>
+</section>
+<div th:if="${commentsDto != null}">
+    <section class="section">
+        <div class="columns is-centered">
+            <div class="column is-narrow">
+                <table class="table is-striped is-hoverable">
+                    <thead>
+                    <tr>
+                        <th>posted by</th>
+                        <th>posted</th>
+                        <th>Message</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="commentDto : ${commentsDto}">
 
-<!--            <td> <a th:href="@{/messages/{id}/editor/(id=${messageDto.id})}">Edit message</a> </td>-->
+                        <td th:text="${commentDto.username}"/>
+                        <td th:text="${commentDto.timeStamp}"/>
+                        <td th:text="${commentDto.content}"/>
 
-<!--            <div sec:authorize="hasRole('ROLE_ADMIN')">-->
-<!--                <td> <a th:href="@{/admin/messages/{id}/delete/(id=${messageDto.id})}">Delete message</a> </td>-->
-<!--            </div>-->
-        </tr>
-        </tbody>
+                        <!--            <td> <a th:href="@{/comments/{id}/editor/(id=${commentDto.id})}">Edit comment</a> </td>-->
 
-    </table>
-<!--</div>-->
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
+                            <td><a th:href="@{/admin/comments/{id}/delete/(id=${commentDto.id})}">Delete Comment</a>
+                            </td>
+                        </div>
+                    </tr>
+                    </tbody>
 
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
 
-<form method="post" th:action="@{/messages/{id}/comment/newComment}" th:object="${commentDto}">
+<div class="container has-text-centered">
+    <a th:href="@{/messages/{id}/comments/new/(id=${messageDto.id})}">Create comment/reply</a>
+</div>
 
-    <input type="hidden" th:field="*{id}">
-    <input type="hidden" th:field="*{username}">
-    Reply/comment:
-    <input type="text" th:field="*{content}"/>
-
-
-    <button type="submit">Send</button>
-
-</form>
-
-<div>
-    <a th:href="@{/messages}">Return to message board</a>
+<div class="container has-text-right">
+    <a th:href="@{/messages}">Main page</a>
 </div>
 </body>
 </html>

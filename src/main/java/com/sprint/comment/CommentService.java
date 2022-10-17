@@ -2,23 +2,23 @@ package com.sprint.comment;
 
 import com.sprint.message.Message;
 import com.sprint.message.MessageDto;
+import com.sprint.user.auth.exception.NoAccessException;
 
 import java.util.List;
 
 public interface CommentService {
 
     void save(Comment comment);
-    void save(CommentDto commentDto, MessageDto messageDto);
+    void save(CommentDto commentDto,Integer id);
 
     List<CommentDto> getAll();
     List<CommentDto> getAllByMessageId(Integer id);
 
     void deleteById(Integer id);
 
-    void update(Comment comment);
+    void update(CommentDto commentDto) throws NoAccessException;
 
-    Comment getById(Integer id);
+    CommentDto getById(Integer id);
 
-    CommentDto getByMessageId(Integer id);
 
 }

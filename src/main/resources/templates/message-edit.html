@@ -1,32 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Message details</title>
 </head>
 <body>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                Update message
+            </p>
+        </div>
+    </div>
+</section>
+<section>
+    <p th:text="${exceptionMessage}"/>
+</section>
 
-<p th:text="${exceptionMessage}"/>
+<div class="container is-centered">
+    <div class="container has-text-centered">
+        <form method="post" th:action="@{/messages/updatedMessage}" th:object="${messageDto}">
 
-<form method="post" th:action="@{/messages/updatedMessage}" th:object="${messageDto}">
-
-    <input type="hidden" th:field="*{id}">
-    <input type="hidden" th:field="*{username}">
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{username}">
 
 
-    <label>
-        Treść wiadomości:
-        <input type="text" th:field="*{content}"/>
-        <!--        <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}"/>-->
-    </label>
+            <label>
 
-    <button type="submit">Zaktualizuj wiadomość</button>
+                <input class="is-medium" type="text" placeholder="{text}/(text=${messageDto.content})"
+                       th:field="*{content}"/>
+                <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}"/>
+            </label>
 
-</form>
+            <div>
+                <button class="button is-centered is-rounded is-medium" type="submit">Update message</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-<div>
-    <a th:href="@{/messages}">Return to message board</a>
+<div class="container has-text-right">
+    <a th:href="@{/messages}">Main page</a>
 </div>
 </body>
 </html>

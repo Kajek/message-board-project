@@ -1,20 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
     <meta charset="UTF-8">
     <title>User panel</title>
 </head>
 <body>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                Account settings
+            </p>
+        </div>
+    </div>
+</section>
 
-<h1>User panel</h1>
+<div class="container has-text-left">
 
-Logged as <p sec:authentication="name"/>
+    Logged as: <p sec:authentication="name"/>
 
-<a th:href="@{/logout}">Logout</a>
+</div>
 
-<a th:href="@{/messages}">Show messages</a>
+<div class="container has-text-left">
+    <a th:href="@{/logout}">Logout</a>
+</div>
 
-<a th:href="@{/user/password}">Change Password</a>
 
+<div class="container has-text-centered">
+    <a th:href="@{/user/password}">Change Password</a>
+</div>
+
+<div class="container has-text-right">
+    <a th:href="@{/messages}">Main page</a>
+</div>
 </body>
 </html>

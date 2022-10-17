@@ -22,7 +22,6 @@ public class MessageDto {
 
     private String timeStamp;
 
-//    private List<Comment> comments;
 
     public static MessageDto from(Message message){
         return new MessageDto(message.getId(),

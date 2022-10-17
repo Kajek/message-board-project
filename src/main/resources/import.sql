@@ -1,5 +1,5 @@
 insert into message (content, username, time_stamp) values ('Pierwsza testowa wiadomość', 'admin', '2010-12-13 13:12:11');
-insert into message (content ,username, time_stamp) values ('druga testowa wiadomosc' , 'user', '2022-01-02 11:13:15');
+insert into message (content ,username, time_stamp) values ('Druga testowa wiadomość' , 'user', '2022-01-02 11:13:15');
 
 
 insert into role (id, name) values(1, 'ADMIN');

@@ -67,23 +67,8 @@ public class MessageServiceImpl implements MessageService{
     public MessageDto getById(Integer id) {
 
         return MessageDto.from(Objects.requireNonNull(messageRepository.findById(id).orElse(null)));
-//        return messageRepository.findById(id).orElse(null);
-//        MessageDto messageDto = new MessageDto ();
-//        Message message = messageRepository.findById(id).orElse(null);
-//        messageDto.setId(message.getId());
-//        messageDto.setContent(message.getContent());
-//        messageDto.setUsername(message.getUsername());
-//        messageDto.setTimeStamp(message.getTimeStamp());
+
 
     }
 
-//    @Override
-//    public void setTimestamp(Message message) {
-//        message.setTimeStamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()));
-//    }
-
-//    @Override
-//    public void addComment(Message message, Comment comment) {
-//        message.getComments().add(comment);
-//    }
 }

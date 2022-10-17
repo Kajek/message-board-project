@@ -1,46 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
-Logged as <p th:text="${currentUser}"/>
-
-Logged as (thymeleaf) <p sec:authentication="name"/>
-
-<a th:href="@{/logout}">Logout</a>
-
-
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    <td> <a th:href="@{/admin/panel}">Admin Settings</a> </td>
-</div>
-
-
-<div sec:authorize="hasRole('ROLE_USER')">
-    <td> <a th:href="@{/user/panel}">Account Settings</a> </td>
-</div>
-
-<table>
-    <tbody>
-    <tr th:each="messageDto : ${messagesDto}">
-        <td th:text="${messageDto.content}"/>
-        <td th:text="${messageDto.timeStamp}"/>
-        <td th:text="${messageDto.username}"/>
-        <td> <a th:href="@{/messages/{id}/(id=${messageDto.id})}">See replies</a> </td>
-        <td> <a th:href="@{/messages/{id}/editor/(id=${messageDto.id})}">Edit message</a> </td>
-
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
-            <td> <a th:href="@{/admin/messages/{id}/delete/(id=${messageDto.id})}">Delete message</a> </td>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                Message board
+            </p>
         </div>
-    </tr>
-    </tbody>
+    </div>
+</section>
 
-</table>
+<div class="container has-text-left">
+    <!--Logged as <p th:text="${currentUser}"/>-->
 
-<div>
-    <a th:href="@{/messages/message}">Create message</a>
+    Logged as: <p sec:authentication="name"/>
+
+</div>
+<div class="container has-text-left">
+    <a th:href="@{/logout}">Logout</a>
+</div>
+
+
+<div class="container has-text-right" sec:authorize="hasRole('ROLE_ADMIN')">
+    <td><a th:href="@{/admin/panel}">Admin Settings</a></td>
+</div>
+
+
+<div class="container has-text-right" sec:authorize="hasRole('ROLE_USER')">
+    <td><a th:href="@{/user/panel}">Account Settings</a></td>
+</div>
+
+<section class="section">
+    <div class="columns is-centered">
+        <div class="column is-narrow">
+            <table class="table is-striped is-hoverable">
+                <thead>
+                <tr>
+                    <th>posted by</th>
+                    <th>posted</th>
+                    <th>Message</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr th:each="messageDto, iStat : ${messagesDto}"
+                    th:style="${iStat.odd}? 'font-weight: bold;'"
+                    th:alt-title="${iStat.even}? 'even' : 'odd'">
+                    <td th:text="${messageDto.content}"/>
+                    <td th:text="${messageDto.timeStamp}"/>
+                    <td th:text="${messageDto.username}"/>
+                    <td><a th:href="@{/messages/{id}/(id=${messageDto.id})}">See replies</a></td>
+                    <td><a th:href="@{/messages/{id}/editor/(id=${messageDto.id})}">Edit message</a></td>
+
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <td><a th:href="@{/admin/messages/{id}/delete/(id=${messageDto.id})}">Delete message</a></td>
+                    </div>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<div class="container has-text-centered">
+    <a th:href="@{/messages/message}">Create new message</a>
 </div>
 
 </body>

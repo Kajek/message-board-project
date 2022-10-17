@@ -1,26 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Admin panel</title>
 </head>
 <body>
 
-<h1>Admin panel</h1>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                Admin panel
+            </p>
+        </div>
+    </div>
+</section>
 
-Logged as <p sec:authentication="name"/>
+<div class="container has-text-left">
 
-<a th:href="@{/logout}">Logout</a>
+    Logged as: <p sec:authentication="name"/>
 
-<a th:href="@{/messages/message}">Add new message</a>
+</div>
 
-<a th:href="@{/messages}">Show all messages</a>
+<div class="container has-text-left">
+    <a th:href="@{/logout}">Logout</a>
+</div>
 
-<a th:href="@{/admin/users/list}">Show users list</a>
+<div class="container has-text-centered">
+    <a th:href="@{/messages/message}">Add new message</a>
+</div>
 
-<a th:href="@{/admin/users/new}">Add new user</a>
+<div class="container has-text-centered">
+    <a th:href="@{/admin/users/list}">Show users list</a>
+</div>
+<div class="container has-text-centered">
+    <a th:href="@{/admin/users/new}">Add new user</a>
+</div>
+<div class="container has-text-centered">
+    <a th:href="@{/user/password}">Change Password</a>
+</div>
 
-<a th:href="@{/user/password}">Change Password</a>
-
+<div class="container has-text-right">
+    <a th:href="@{/messages}">Main page</a>
+</div>
 </body>
 </html>
