@@ -27,7 +27,7 @@ Simple message board application for communicating with small group of friends /
 ## Core features to be implemented
 
 - ⬜️ Password verification when creating new user
-- ⬜️ Connect editing of comments with controller and view elements
+- ☑️ Connect editing of comments with controller and view elements
 - ⬜️ Expand possibility to log in using also e-mail address
 
 
