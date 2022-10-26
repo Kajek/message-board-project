@@ -1,6 +1,8 @@
 package com.sprint.comment;
 
+import com.sprint.message.MessageDto;
 import com.sprint.message.MessageService;
+import com.sprint.user.auth.exception.NoAccessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,6 +46,32 @@ public class CommentController {
         commentService.save(commentDto, id);
         log.info("Added new comment");
         return "redirect:/messages/{id}";
+    }
+
+    @GetMapping("/comments/{id}/editor")
+    public String commentEditForm(@PathVariable Integer id, ModelMap modelMap){
+
+        modelMap.addAttribute("commentDto",  commentService.getById(id));
+        return "comment-edit";
+    }
+
+    @PostMapping("/comments/updatedComment")
+    public String handleUpdatedComment(@Valid @ModelAttribute("commentDto") CommentDto commentDto, Errors errors, ModelMap modelMap){
+
+        if(errors.hasErrors()){
+            log.error("Errors from frontend " + errors.getFieldErrors());
+            return "comment-edit";
+        }
+        try{
+            commentService.update(commentDto);
+            log.info("Updated comment");
+
+        }catch (NoAccessException e){
+            log.info(e.getMessage());
+            modelMap.addAttribute("exceptionMessage", e.getMessage());
+            return "comment-edit";
+        }
+        return "redirect:/messages";
     }
 
     @GetMapping("/admin/comments/{id}/delete")

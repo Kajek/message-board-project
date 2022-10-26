@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment details</title>
+</head>
+<body>
+<section class="hero is-small is-link">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <p class="title">
+                Update comment
+            </p>
+        </div>
+    </div>
+</section>
+<section>
+    <p th:text="${exceptionMessage}"/>
+</section>
+
+<div class="container is-centered">
+    <div class="container has-text-centered">
+        <form method="post" th:action="@{/comments/updatedComment}" th:object="${commentDto}">
+
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{username}">
+
+
+            <label>
+
+                <input class="is-medium" type="text" placeholder="{text}/(text=${commentDto.content})"
+                       th:field="*{content}"/>
+                <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}"/>
+            </label>
+
+            <div>
+                <button class="button is-centered is-rounded is-medium" type="submit">Update comment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container has-text-right">
+    <a th:href="@{/messages}">Main page</a>
+</div>
+</body>
+</html>

@@ -65,7 +65,7 @@
                         <td th:text="${commentDto.timeStamp}"/>
                         <td th:text="${commentDto.content}"/>
 
-                        <!--            <td> <a th:href="@{/comments/{id}/editor/(id=${commentDto.id})}">Edit comment</a> </td>-->
+                                    <td> <a th:href="@{/comments/{id}/editor/(id=${commentDto.id})}">Edit comment</a> </td>
 
                         <div sec:authorize="hasRole('ROLE_ADMIN')">
                             <td><a th:href="@{/admin/comments/{id}/delete/(id=${commentDto.id})}">Delete Comment</a>
