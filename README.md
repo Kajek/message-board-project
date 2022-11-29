@@ -1,9 +1,8 @@
 
 # Messege board
 
-Project assigment for SDA and Codecool Fullstack Developer Course.
 
-Simple message board application for communicating with small group of friends / coworkers
+Simple message board application for communicating with small group of friends / coworkers. Showing mainly spring security configuration.
 
 
 
